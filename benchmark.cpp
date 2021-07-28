@@ -4,7 +4,7 @@
 #include <vector>
 #include <algorithm>
 
-#include "xorshift.h"
+#include "src/xorshift.h"
 
 using namespace std;
 using namespace xorshift;
@@ -39,7 +39,7 @@ double benchmarkPRNG(size_t num_rands = 50'000'000)
 int main()
 {
 	ofstream file;
-	file.open("results.txt");
+	file.open("results2.txt");
 	size_t num_passes = 3;
 	for (size_t i = 0; i < num_passes; i++)
 	{
