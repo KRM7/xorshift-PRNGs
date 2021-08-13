@@ -1,3 +1,5 @@
+/* Copyright (c) 2021 Krisztián Rugási. Subject to the MIT license. */
+
 /**
  * Implementations of some xorshift based PRNGs from https://prng.di.unimi.it/.
  * 
@@ -213,7 +215,6 @@ namespace xorshift
 		}
 	};
 
-
 	/**
 	 * xoshiro256** PRNG adapted from https://prng.di.unimi.it/xoshiro256starstar.c
 	 * Generates 64-bit numbers. 32 byte state. Highest quality 64 bit generator.
@@ -327,4 +328,5 @@ namespace xorshift
 	};
 
 } // namespace xorshift
+
 #endif

@@ -39,7 +39,7 @@ double benchmarkPRNG(size_t num_rands = 50'000'000)
 int main()
 {
 	ofstream file;
-	file.open("results2.txt");
+	file.open("results.txt");
 	size_t num_passes = 3;
 	for (size_t i = 0; i < num_passes; i++)
 	{

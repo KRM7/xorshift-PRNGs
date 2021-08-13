@@ -42,36 +42,36 @@ in main()
 
 Using the mersenne twister engines as the baseline.
 ```
-g++ -O3 -std=c++17
+g++ -std=c++20 -O2 -flto -DNDEBUG
 ```
 
 ```
-gcc 8.1.0
+gcc 10.2.0
 
 Pass 0
-mersenne:	0.583545 s
-mersenne64:	1.05663 s
-xoroshiro128p:	0.396048 s
-xoshiro256p:	0.382495 s
-xoshiro128p:	0.525778 s
-xoshiro256ss:	0.468575 s
-xoshiro128ss:	0.294529 s
+mersenne:	    1.26325 s
+mersenne64:	    0.993472 s
+xoroshiro128p:	0.438569 s
+xoshiro256p:	0.402429 s
+xoshiro128p:	0.399804 s
+xoshiro256ss:	0.444019 s
+xoshiro128ss:	0.498351 s
 
 Pass 1
-mersenne:	0.547954 s
-mersenne64:	1.0341 s
-xoroshiro128p:	0.366878 s
-xoshiro256p:	0.354722 s
-xoshiro128p:	0.518871 s
-xoshiro256ss:	0.470093 s
-xoshiro128ss:	0.270114 s
+mersenne:	    1.14937 s
+mersenne64: 	0.901422 s
+xoroshiro128p:	0.346773 s
+xoshiro256p:	0.347103 s
+xoshiro128p:	0.367864 s
+xoshiro256ss:	0.360885 s
+xoshiro128ss:	0.498022 s
 
 Pass 2
-mersenne:	0.542493 s
-mersenne64:	1.00261 s
-xoroshiro128p:	0.373166 s
-xoshiro256p:	0.362032 s
-xoshiro128p:	0.509503 s
-xoshiro256ss:	0.475467 s
-xoshiro128ss:	0.264851 s
+mersenne:	    1.13552 s
+mersenne64:	    0.900177 s
+xoroshiro128p:	0.34583 s
+xoshiro256p:	0.347364 s
+xoshiro128p:	0.369959 s
+xoshiro256ss:	0.362179 s
+xoshiro128ss:	0.497302 s
 ```
