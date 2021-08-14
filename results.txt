@@ -1,27 +1,26 @@
 Pass 0
-mersenne:	1.26325 s
-mersenne64:	0.993472 s
-xoroshiro128p:	0.438569 s
-xoshiro256p:	0.402429 s
-xoshiro128p:	0.399804 s
-xoshiro256ss:	0.444019 s
-xoshiro128ss:	0.498351 s
+mersenne:	1.23089 s
+mersenne64:	0.964539 s
+xoroshiro128p:	0.346801 s
+xoshiro256p:	0.346446 s
+xoshiro128p:	0.369133 s
+xoshiro256ss:	0.361454 s
+xoshiro128ss:	0.47015 s
 
 Pass 1
-mersenne:	1.14937 s
-mersenne64:	0.901422 s
-xoroshiro128p:	0.346773 s
-xoshiro256p:	0.347103 s
-xoshiro128p:	0.367864 s
-xoshiro256ss:	0.360885 s
-xoshiro128ss:	0.498022 s
+mersenne:	1.22467 s
+mersenne64:	0.959018 s
+xoroshiro128p:	0.347749 s
+xoshiro256p:	0.352565 s
+xoshiro128p:	0.418605 s
+xoshiro256ss:	0.360082 s
+xoshiro128ss:	0.469966 s
 
 Pass 2
-mersenne:	1.13552 s
-mersenne64:	0.900177 s
-xoroshiro128p:	0.34583 s
-xoshiro256p:	0.347364 s
-xoshiro128p:	0.369959 s
-xoshiro256ss:	0.362179 s
-xoshiro128ss:	0.497302 s
-
+mersenne:	1.25978 s
+mersenne64:	0.959827 s
+xoroshiro128p:	0.364393 s
+xoshiro256p:	0.360509 s
+xoshiro128p:	0.369169 s
+xoshiro256ss:	0.361206 s
+xoshiro128ss:	0.468972 s
