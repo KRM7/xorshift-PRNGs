@@ -41,7 +41,7 @@ namespace xorshift
 
         static constexpr result_type min() noexcept
         {
-            return std::numeric_limits<result_type>::min();
+            return std::numeric_limits<result_type>::lowest();
         }
         static constexpr result_type max() noexcept
         {
@@ -87,7 +87,7 @@ namespace xorshift
 
         static constexpr result_type min() noexcept
         {
-            return std::numeric_limits<result_type>::min();
+            return std::numeric_limits<result_type>::lowest();
         }
         static constexpr result_type max() noexcept
         {
@@ -143,7 +143,7 @@ namespace xorshift
 
         static constexpr result_type min() noexcept
         {
-            return std::numeric_limits<result_type>::min();
+            return std::numeric_limits<result_type>::lowest();
         }
         static constexpr result_type max() noexcept
         {
@@ -199,7 +199,7 @@ namespace xorshift
 
         static constexpr result_type min() noexcept
         {
-            return std::numeric_limits<result_type>::min();
+            return std::numeric_limits<result_type>::lowest();
         }
         static constexpr result_type max() noexcept
         {
@@ -255,7 +255,7 @@ namespace xorshift
 
         static constexpr result_type min() noexcept
         {
-            return std::numeric_limits<result_type>::min();
+            return std::numeric_limits<result_type>::lowest();
         }
         static constexpr result_type max() noexcept
         {
@@ -311,7 +311,7 @@ namespace xorshift
         
         static constexpr result_type min() noexcept    
         {
-            return std::numeric_limits<result_type>::min();
+            return std::numeric_limits<result_type>::lowest();
         }
         static constexpr result_type max() noexcept
         {
