@@ -28,7 +28,7 @@ namespace xorshift
         using result_type = uint_fast64_t;
         using state_type = uint_fast64_t;
 
-        splitmix64(state_type seed): state(seed) {}
+        explicit splitmix64(state_type seed): state(seed) {}
 
         result_type operator()() noexcept
         {
@@ -63,14 +63,16 @@ namespace xorshift
         using result_type = uint_fast64_t;
         using state_type = uint_fast64_t;
 
-        xoroshiro128p(uint_fast64_t seed)
+        explicit xoroshiro128p(uint_fast64_t seed)
         {
             splitmix64 seed_seq_gen(seed);
-            state[0] = seed_seq_gen();
-            state[1] = seed_seq_gen();
+            for(auto& s : state)
+            {
+                s = seed_seq_gen();
+            }
         }
 
-        xoroshiro128p(std::array<state_type, 2> state) : state(state) {}
+        explicit xoroshiro128p(std::array<state_type, 2> state) : state(state) {}
 
         result_type operator()() noexcept
         {
@@ -114,7 +116,7 @@ namespace xorshift
         using result_type = uint_fast64_t;
         using state_type = uint_fast64_t;
 
-        xoshiro256p(uint_fast64_t seed)
+        explicit xoshiro256p(uint_fast64_t seed)
         {
             splitmix64 seed_seq_gen(seed);
             for(auto& s : state)
@@ -123,7 +125,7 @@ namespace xorshift
             }
         }
 
-        xoshiro256p(std::array<state_type, 4> state) : state(state) {}
+        explicit xoshiro256p(std::array<state_type, 4> state) : state(state) {}
 
         result_type operator()() noexcept
         {
@@ -170,7 +172,7 @@ namespace xorshift
         using result_type = uint_fast64_t;
         using state_type = uint_fast64_t;
 
-        xoshiro128p(uint_fast64_t seed)
+        explicit xoshiro128p(uint_fast64_t seed)
         {
             splitmix64 seed_seq_gen(seed);
             for(auto& s : state)
@@ -179,7 +181,7 @@ namespace xorshift
             }
         }
 
-        xoshiro128p(std::array<state_type, 4> state) : state(state) {}
+        explicit xoshiro128p(std::array<state_type, 4> state) : state(state) {}
 
         result_type operator()() noexcept
         {
@@ -226,7 +228,7 @@ namespace xorshift
         using result_type = uint_fast64_t;
         using state_type = uint_fast64_t;
 
-        xoshiro256ss(uint_fast64_t seed)
+        explicit xoshiro256ss(uint_fast64_t seed)
         {
             splitmix64 seed_seq_gen(seed);
             for(auto& s : state)
@@ -235,7 +237,7 @@ namespace xorshift
             }
         }
 
-        xoshiro256ss(std::array<state_type, 4> state) : state(state) {}
+        explicit xoshiro256ss(std::array<state_type, 4> state) : state(state) {}
 
         result_type operator()() noexcept
         {
@@ -282,7 +284,7 @@ namespace xorshift
         using result_type = uint_fast32_t;
         using state_type = uint_fast32_t;
         
-        xoshiro128ss(uint_fast64_t seed)
+        explicit xoshiro128ss(uint_fast64_t seed)
         {
             splitmix64 seed_seq_gen(seed);
             for(auto& s : state)
@@ -291,7 +293,7 @@ namespace xorshift
             }
         }
 
-        xoshiro128ss(std::array<state_type, 4> state) : state(state) {}
+        explicit xoshiro128ss(std::array<state_type, 4> state) : state(state) {}
 
         result_type operator()() noexcept
         {
