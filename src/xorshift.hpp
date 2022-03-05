@@ -1,10 +1,10 @@
-/* Copyright (c) 2021 Kriszti√°n Rug√°si. Subject to the MIT license. */
+/* Copyright (c) 2022 Kriszti·n Rug·si. Subject to the MIT license. */
 
 /**
  * Implementations of some xorshift based PRNGs from https://prng.di.unimi.it/.
  * 
  * All of the PRNGs implemented in this work with the distributions in the standard library (eg. std::uniform_real_distribution),
- * and qualify as std::uniform_random_bit_generator. \n
+ * and qualify as std::uniform_random_bit_generator.
  * All of them are faster than the mersenne twister engines implemented in the standard library.
  */
 
@@ -28,9 +28,9 @@ namespace xorshift
         using result_type = uint_fast64_t;
         using state_type = uint_fast64_t;
 
-        explicit splitmix64(state_type seed): state(seed) {}
+        explicit constexpr splitmix64(state_type seed) : state(seed) {}
 
-        result_type operator()() noexcept
+        constexpr result_type operator()() noexcept
         {
             state += 0x9e3779b97f4a7c15;
             result_type z = state;
@@ -63,26 +63,24 @@ namespace xorshift
         using result_type = uint_fast64_t;
         using state_type = uint_fast64_t;
 
-        explicit xoroshiro128p(uint_fast64_t seed)
+        explicit constexpr xoroshiro128p(uint_fast64_t seed)
         {
             splitmix64 seed_seq_gen(seed);
-            for(auto& s : state)
-            {
-                s = seed_seq_gen();
-            }
+            state[0] = seed_seq_gen();
+            state[1] = seed_seq_gen();
         }
 
-        explicit xoroshiro128p(std::array<state_type, 2> state) : state(state) {}
+        explicit constexpr xoroshiro128p(const std::array<state_type, 2>& state) : state(state) {}
 
-        result_type operator()() noexcept
+        constexpr result_type operator()() noexcept
         {
             const state_type s0 = state[0];
             state_type s1 = state[1];
             const result_type result = s0 + s1;
 
             s1 ^= s0;
-            state[0] = rotl(s0, 24) ^ s1 ^ (s1 << 16);
-            state[1] = rotl(s1, 37);
+            state[0] = rotl64(s0, 24U) ^ s1 ^ (s1 << 16);
+            state[1] = rotl64(s1, 37U);
 
             return result;
         }
@@ -99,9 +97,9 @@ namespace xorshift
     private:
         std::array<state_type, 2> state;
 
-        static state_type rotl(state_type x, int k) noexcept
+        static constexpr state_type rotl64(state_type x, unsigned k) noexcept
         {
-            return (x << k) | (x >> (64 - k));
+            return (x << k) | (x >> (64U - k));
         }
     };
 
@@ -116,18 +114,18 @@ namespace xorshift
         using result_type = uint_fast64_t;
         using state_type = uint_fast64_t;
 
-        explicit xoshiro256p(uint_fast64_t seed)
+        explicit constexpr xoshiro256p(uint_fast64_t seed)
         {
             splitmix64 seed_seq_gen(seed);
-            for(auto& s : state)
-            {
-                s = seed_seq_gen();
-            }
+            state[0] = seed_seq_gen();
+            state[1] = seed_seq_gen();
+            state[2] = seed_seq_gen();
+            state[3] = seed_seq_gen();
         }
 
-        explicit xoshiro256p(std::array<state_type, 4> state) : state(state) {}
+        explicit constexpr xoshiro256p(const std::array<state_type, 4>& state) : state(state) {}
 
-        result_type operator()() noexcept
+        constexpr result_type operator()() noexcept
         {
             const result_type result = state[0] + state[3];
             const state_type t = state[1] << 17;
@@ -138,7 +136,7 @@ namespace xorshift
             state[0] ^= state[3];
 
             state[2] ^= t;
-            state[3] = rotl(state[3], 45);
+            state[3] = rotl64(state[3], 45U);
 
             return result;
         }
@@ -155,9 +153,9 @@ namespace xorshift
     private:
         std::array<state_type, 4> state;
 
-        static state_type rotl(state_type x, int k) noexcept
+        static constexpr state_type rotl64(state_type x, unsigned k) noexcept
         {
-            return (x << k) | (x >> (64 - k));
+            return (x << k) | (x >> (64U - k));
         }
     };
 
@@ -172,18 +170,18 @@ namespace xorshift
         using result_type = uint_fast64_t;
         using state_type = uint_fast64_t;
 
-        explicit xoshiro128p(uint_fast64_t seed)
+        explicit constexpr xoshiro128p(uint_fast64_t seed)
         {
             splitmix64 seed_seq_gen(seed);
-            for(auto& s : state)
-            {
-                s = state_type(seed_seq_gen());
-            }
+            state[0] = state_type(seed_seq_gen());
+            state[1] = state_type(seed_seq_gen());
+            state[2] = state_type(seed_seq_gen());
+            state[3] = state_type(seed_seq_gen());
         }
 
-        explicit xoshiro128p(std::array<state_type, 4> state) : state(state) {}
+        explicit constexpr xoshiro128p(const std::array<state_type, 4>& state) : state(state) {}
 
-        result_type operator()() noexcept
+        constexpr result_type operator()() noexcept
         {
             const result_type result = state[0] + state[3];
             const state_type t = state[1] << 9;
@@ -194,7 +192,7 @@ namespace xorshift
             state[0] ^= state[3];
 
             state[2] ^= t;
-            state[3] = rotl(state[3], 11);
+            state[3] = rotl32(state[3], 11U);
 
             return result;
         }
@@ -211,9 +209,9 @@ namespace xorshift
     private:
         std::array<state_type, 4> state;
 
-        static state_type rotl(state_type x, int k) noexcept
+        static constexpr state_type rotl32(state_type x, unsigned k) noexcept
         {
-            return (x << k) | (x >> (32 - k));
+            return (x << k) | (x >> (32U - k));
         }
     };
 
@@ -228,20 +226,20 @@ namespace xorshift
         using result_type = uint_fast64_t;
         using state_type = uint_fast64_t;
 
-        explicit xoshiro256ss(uint_fast64_t seed)
+        explicit constexpr xoshiro256ss(uint_fast64_t seed)
         {
             splitmix64 seed_seq_gen(seed);
-            for(auto& s : state)
-            {
-                s = seed_seq_gen();
-            }
+            state[0] = seed_seq_gen();
+            state[1] = seed_seq_gen();
+            state[2] = seed_seq_gen();
+            state[3] = seed_seq_gen();
         }
 
-        explicit xoshiro256ss(std::array<state_type, 4> state) : state(state) {}
+        explicit constexpr xoshiro256ss(const std::array<state_type, 4>& state) : state(state) {}
 
-        result_type operator()() noexcept
+        constexpr result_type operator()() noexcept
         {
-            const result_type result = rotl(state[1] * 5, 7) * 9;
+            const result_type result = rotl64(state[1] * 5, 7U) * 9;
             const state_type t = state[1] << 17;
 
             state[2] ^= state[0];
@@ -250,7 +248,7 @@ namespace xorshift
             state[0] ^= state[3];
 
             state[2] ^= t;
-            state[3] = rotl(state[3], 45);
+            state[3] = rotl64(state[3], 45U);
 
             return result;
         }
@@ -267,9 +265,9 @@ namespace xorshift
     private:
         std::array<state_type, 4> state;
 
-        static state_type rotl(state_type x, int k) noexcept
+        static constexpr state_type rotl64(state_type x, unsigned k) noexcept
         {
-            return (x << k) | (x >> (64 - k));
+            return (x << k) | (x >> (64U - k));
         }
     };
 
@@ -284,20 +282,20 @@ namespace xorshift
         using result_type = uint_fast32_t;
         using state_type = uint_fast32_t;
         
-        explicit xoshiro128ss(uint_fast64_t seed)
+        explicit constexpr xoshiro128ss(uint_fast64_t seed)
         {
             splitmix64 seed_seq_gen(seed);
-            for(auto& s : state)
-            {
-                s = state_type(seed_seq_gen());
-            }
+            state[0] = state_type(seed_seq_gen());
+            state[1] = state_type(seed_seq_gen());
+            state[2] = state_type(seed_seq_gen());
+            state[3] = state_type(seed_seq_gen());
         }
 
-        explicit xoshiro128ss(std::array<state_type, 4> state) : state(state) {}
+        explicit constexpr xoshiro128ss(const std::array<state_type, 4>& state) : state(state) {}
 
-        result_type operator()() noexcept
+        constexpr result_type operator()() noexcept
         {
-            const result_type result = rotl(state[1] * 5, 7) * 9;
+            const result_type result = rotl32(state[1] * 5, 7U) * 9;
             const state_type t = state[1] << 9;
 
             state[2] ^= state[0];
@@ -306,7 +304,7 @@ namespace xorshift
             state[0] ^= state[3];
 
             state[2] ^= t;
-            state[3] = rotl(state[3], 11);
+            state[3] = rotl32(state[3], 11U);
 
             return result;
         }
@@ -323,9 +321,9 @@ namespace xorshift
     private:
         std::array<state_type, 4> state;
 
-        static state_type rotl(state_type x, int k) noexcept
+        static constexpr state_type rotl32(state_type x, unsigned k) noexcept
         {
-            return (x << k) | (x >> (32 - k));
+            return (x << k) | (x >> (32U - k));
         }
     };
 
