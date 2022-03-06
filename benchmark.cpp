@@ -1,10 +1,5 @@
-#include <fstream>
 #include <random>
-#include <chrono>
-#include <vector>
-#include <algorithm>
 #include <benchmark/benchmark.h>
-
 #include "src/xorshift.hpp"
 
 using namespace std;
