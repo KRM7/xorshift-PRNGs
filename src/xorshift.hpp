@@ -14,6 +14,7 @@
 #include <limits>
 #include <cstdint>
 #include <array>
+#include <bit>
 
 namespace xorshift
 {
@@ -83,8 +84,8 @@ namespace xorshift
             const result_type result = s0 + s1;
 
             s1 ^= s0;
-            state[0] = rotl64(s0, 24U) ^ s1 ^ (s1 << 16);
-            state[1] = rotl64(s1, 37U);
+            state[0] = std::rotl<state_type>(s0, 24U) ^ s1 ^ (s1 << 16);
+            state[1] = std::rotl<state_type>(s1, 37U);
 
             return result;
         }
@@ -100,11 +101,6 @@ namespace xorshift
 
     private:
         std::array<state_type, 2> state;
-
-        static constexpr state_type rotl64(state_type x, unsigned k) noexcept
-        {
-            return (x << k) | (x >> (64U - k));
-        }
     };
 
     /**
@@ -127,7 +123,9 @@ namespace xorshift
             state[3] = seed_seq_gen();
         }
 
-        explicit constexpr xoshiro256p(const std::array<state_type, 4>& state) : state(state) {}
+        explicit constexpr xoshiro256p(const std::array<state_type, 4>& state) noexcept
+            : state(state)
+        {}
 
         constexpr result_type operator()() noexcept
         {
@@ -140,7 +138,7 @@ namespace xorshift
             state[0] ^= state[3];
 
             state[2] ^= t;
-            state[3] = rotl64(state[3], 45U);
+            state[3] = std::rotl<state_type>(state[3], 45U);
 
             return result;
         }
@@ -156,11 +154,6 @@ namespace xorshift
 
     private:
         std::array<state_type, 4> state;
-
-        static constexpr state_type rotl64(state_type x, unsigned k) noexcept
-        {
-            return (x << k) | (x >> (64U - k));
-        }
     };
 
     /**
@@ -198,7 +191,7 @@ namespace xorshift
             state[0] ^= state[3];
 
             state[2] ^= t;
-            state[3] = rotl32(state[3], 11U);
+            state[3] = std::rotl<state_type>(state[3], 11U);
 
             return result;
         }
@@ -214,11 +207,6 @@ namespace xorshift
 
     private:
         std::array<state_type, 4> state;
-
-        static constexpr state_type rotl32(state_type x, unsigned k) noexcept
-        {
-            return (x << k) | (x >> (32U - k));
-        }
     };
 
     /**
@@ -247,7 +235,7 @@ namespace xorshift
 
         constexpr result_type operator()() noexcept
         {
-            const result_type result = rotl64(state[1] * 5, 7U) * 9;
+            const result_type result = std::rotl<state_type>(state[1] * 5U, 7U) * 9U;
             const state_type t = state[1] << 17;
 
             state[2] ^= state[0];
@@ -256,7 +244,7 @@ namespace xorshift
             state[0] ^= state[3];
 
             state[2] ^= t;
-            state[3] = rotl64(state[3], 45U);
+            state[3] = std::rotl<state_type>(state[3], 45U);
 
             return result;
         }
@@ -272,15 +260,10 @@ namespace xorshift
 
     private:
         std::array<state_type, 4> state;
-
-        static constexpr state_type rotl64(state_type x, unsigned k) noexcept
-        {
-            return (x << k) | (x >> (64U - k));
-        }
     };
 
     /**
-     * xoshiro128** PRNG adapted from 
+     * xoshiro128** PRNG adapted from https://prng.di.unimi.it/xoshiro128starstar.c
      * Generates 32-bit numbers. 16 byte state. Highest quality 32 bit generator.
      * Works with the standard library distributions, qualifies as std::uniform_random_bit_generator
      */
@@ -305,7 +288,7 @@ namespace xorshift
 
         constexpr result_type operator()() noexcept
         {
-            const result_type result = rotl32(state[1] * 5, 7U) * 9;
+            const result_type result = std::rotl<state_type>(state[1] * 5U, 7U) * 9U;
             const state_type t = state[1] << 9;
 
             state[2] ^= state[0];
@@ -314,7 +297,7 @@ namespace xorshift
             state[0] ^= state[3];
 
             state[2] ^= t;
-            state[3] = rotl32(state[3], 11U);
+            state[3] = std::rotl<state_type>(state[3], 11U);
 
             return result;
         }
@@ -330,11 +313,6 @@ namespace xorshift
 
     private:
         std::array<state_type, 4> state;
-
-        static constexpr state_type rotl32(state_type x, unsigned k) noexcept
-        {
-            return (x << k) | (x >> (32U - k));
-        }
     };
 
 } // namespace xorshift
