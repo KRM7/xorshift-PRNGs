@@ -22,7 +22,7 @@ namespace xorshift
      * Generates 64-bit numbers, only used for the initialization of the other PRNGs.
      * Works with the standard library distributions, qualifies as std::uniform_random_bit_generator
      */
-    class splitmix64
+    class splitmix64 final
     {
     public:
         using result_type = uint64_t;
@@ -57,7 +57,7 @@ namespace xorshift
      * Generates 64-bit numbers. 16 byte state.
      * Works with the standard library distributions, qualifies as std::uniform_random_bit_generator
      */
-    class xoroshiro128p
+    class xoroshiro128p final
     {
     public:
         using result_type = uint64_t;
@@ -108,7 +108,7 @@ namespace xorshift
      * Generates 64-bit numbers. 32 byte state.
      * Works with the standard library distributions, qualifies as std::uniform_random_bit_generator
      */
-    class xoshiro256p
+    class xoshiro256p final
     {
     public:
         using result_type = uint64_t;
@@ -164,7 +164,7 @@ namespace xorshift
      * Generates 32-bit numbers. 16 byte state.
      * Works with the standard library distributions, qualifies as std::uniform_random_bit_generator
      */
-    class xoshiro128p
+    class xoshiro128p final
     {
     public:
         using result_type = uint64_t;
@@ -220,7 +220,7 @@ namespace xorshift
      * Generates 64-bit numbers. 32 byte state. Highest quality 64 bit generator.
      * Works with the standard library distributions, qualifies as std::uniform_random_bit_generator
      */
-    class xoshiro256ss
+    class xoshiro256ss final
     {
     public:
         using result_type = uint64_t;
@@ -276,7 +276,7 @@ namespace xorshift
      * Generates 32-bit numbers. 16 byte state. Highest quality 32 bit generator.
      * Works with the standard library distributions, qualifies as std::uniform_random_bit_generator
      */
-    class xoshiro128ss
+    class xoshiro128ss final
     {
     public:
         using result_type = uint32_t;
