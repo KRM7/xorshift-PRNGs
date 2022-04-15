@@ -25,8 +25,8 @@ namespace xorshift
     class splitmix64
     {
     public:
-        using result_type = uint_fast64_t;
-        using state_type = uint_fast64_t;
+        using result_type = uint64_t;
+        using state_type = uint64_t;
 
         explicit constexpr splitmix64(state_type seed) : state(seed) {}
 
@@ -60,10 +60,10 @@ namespace xorshift
     class xoroshiro128p
     {
     public:
-        using result_type = uint_fast64_t;
-        using state_type = uint_fast64_t;
+        using result_type = uint64_t;
+        using state_type = uint64_t;
 
-        explicit constexpr xoroshiro128p(uint_fast64_t seed)
+        explicit constexpr xoroshiro128p(uint64_t seed)
         {
             splitmix64 seed_seq_gen(seed);
             state[0] = seed_seq_gen();
@@ -111,10 +111,10 @@ namespace xorshift
     class xoshiro256p
     {
     public:
-        using result_type = uint_fast64_t;
-        using state_type = uint_fast64_t;
+        using result_type = uint64_t;
+        using state_type = uint64_t;
 
-        explicit constexpr xoshiro256p(uint_fast64_t seed)
+        explicit constexpr xoshiro256p(uint64_t seed)
         {
             splitmix64 seed_seq_gen(seed);
             state[0] = seed_seq_gen();
@@ -167,10 +167,10 @@ namespace xorshift
     class xoshiro128p
     {
     public:
-        using result_type = uint_fast64_t;
-        using state_type = uint_fast64_t;
+        using result_type = uint64_t;
+        using state_type = uint64_t;
 
-        explicit constexpr xoshiro128p(uint_fast64_t seed)
+        explicit constexpr xoshiro128p(uint64_t seed)
         {
             splitmix64 seed_seq_gen(seed);
             state[0] = state_type(seed_seq_gen());
@@ -223,10 +223,10 @@ namespace xorshift
     class xoshiro256ss
     {
     public:
-        using result_type = uint_fast64_t;
-        using state_type = uint_fast64_t;
+        using result_type = uint64_t;
+        using state_type = uint64_t;
 
-        explicit constexpr xoshiro256ss(uint_fast64_t seed)
+        explicit constexpr xoshiro256ss(uint64_t seed)
         {
             splitmix64 seed_seq_gen(seed);
             state[0] = seed_seq_gen();
@@ -279,10 +279,10 @@ namespace xorshift
     class xoshiro128ss
     {
     public:
-        using result_type = uint_fast32_t;
-        using state_type = uint_fast32_t;
+        using result_type = uint32_t;
+        using state_type = uint32_t;
         
-        explicit constexpr xoshiro128ss(uint_fast64_t seed)
+        explicit constexpr xoshiro128ss(uint64_t seed)
         {
             splitmix64 seed_seq_gen(seed);
             state[0] = state_type(seed_seq_gen());
