@@ -171,8 +171,8 @@ namespace xorshift
     class xoshiro128p final
     {
     public:
-        using result_type = uint64_t;
-        using state_type = uint64_t;
+        using result_type = uint32_t;
+        using state_type = uint32_t;
 
         explicit constexpr xoshiro128p(uint64_t seed) noexcept
         {
