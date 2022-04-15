@@ -28,7 +28,9 @@ namespace xorshift
         using result_type = uint64_t;
         using state_type = uint64_t;
 
-        explicit constexpr splitmix64(state_type seed) : state(seed) {}
+        explicit constexpr splitmix64(state_type seed) noexcept
+            : state(seed)
+        {}
 
         constexpr result_type operator()() noexcept
         {
@@ -63,14 +65,16 @@ namespace xorshift
         using result_type = uint64_t;
         using state_type = uint64_t;
 
-        explicit constexpr xoroshiro128p(uint64_t seed)
+        explicit constexpr xoroshiro128p(uint64_t seed) noexcept
         {
             splitmix64 seed_seq_gen(seed);
             state[0] = seed_seq_gen();
             state[1] = seed_seq_gen();
         }
 
-        explicit constexpr xoroshiro128p(const std::array<state_type, 2>& state) : state(state) {}
+        explicit constexpr xoroshiro128p(const std::array<state_type, 2>& state) noexcept
+            : state(state)
+        {}
 
         constexpr result_type operator()() noexcept
         {
@@ -114,7 +118,7 @@ namespace xorshift
         using result_type = uint64_t;
         using state_type = uint64_t;
 
-        explicit constexpr xoshiro256p(uint64_t seed)
+        explicit constexpr xoshiro256p(uint64_t seed) noexcept
         {
             splitmix64 seed_seq_gen(seed);
             state[0] = seed_seq_gen();
@@ -170,7 +174,7 @@ namespace xorshift
         using result_type = uint64_t;
         using state_type = uint64_t;
 
-        explicit constexpr xoshiro128p(uint64_t seed)
+        explicit constexpr xoshiro128p(uint64_t seed) noexcept
         {
             splitmix64 seed_seq_gen(seed);
             state[0] = state_type(seed_seq_gen());
@@ -179,7 +183,9 @@ namespace xorshift
             state[3] = state_type(seed_seq_gen());
         }
 
-        explicit constexpr xoshiro128p(const std::array<state_type, 4>& state) : state(state) {}
+        explicit constexpr xoshiro128p(const std::array<state_type, 4>& state) noexcept
+            : state(state)
+        {}
 
         constexpr result_type operator()() noexcept
         {
@@ -226,7 +232,7 @@ namespace xorshift
         using result_type = uint64_t;
         using state_type = uint64_t;
 
-        explicit constexpr xoshiro256ss(uint64_t seed)
+        explicit constexpr xoshiro256ss(uint64_t seed) noexcept
         {
             splitmix64 seed_seq_gen(seed);
             state[0] = seed_seq_gen();
@@ -235,7 +241,9 @@ namespace xorshift
             state[3] = seed_seq_gen();
         }
 
-        explicit constexpr xoshiro256ss(const std::array<state_type, 4>& state) : state(state) {}
+        explicit constexpr xoshiro256ss(const std::array<state_type, 4>& state) noexcept
+            : state(state)
+        {}
 
         constexpr result_type operator()() noexcept
         {
@@ -282,7 +290,7 @@ namespace xorshift
         using result_type = uint32_t;
         using state_type = uint32_t;
         
-        explicit constexpr xoshiro128ss(uint64_t seed)
+        explicit constexpr xoshiro128ss(uint64_t seed) noexcept
         {
             splitmix64 seed_seq_gen(seed);
             state[0] = state_type(seed_seq_gen());
@@ -291,7 +299,9 @@ namespace xorshift
             state[3] = state_type(seed_seq_gen());
         }
 
-        explicit constexpr xoshiro128ss(const std::array<state_type, 4>& state) : state(state) {}
+        explicit constexpr xoshiro128ss(const std::array<state_type, 4>& state) noexcept
+            : state(state)
+        {}
 
         constexpr result_type operator()() noexcept
         {
