@@ -15,6 +15,7 @@
 #include <cstdint>
 #include <array>
 #include <bit>
+#include <functional>
 
 namespace xorshift
 {
@@ -313,6 +314,52 @@ namespace xorshift
 
     private:
         std::array<state_type, 4> state;
+    };
+
+    class sfc64
+    {
+    public:
+        using result_type = uint64_t;
+        using state_type = uint64_t;
+
+        explicit constexpr sfc64(uint64_t seed) noexcept
+            : state({ seed, seed, seed, 1 })
+        {
+            warmup();
+        }
+
+        explicit constexpr sfc64(std::array<state_type, 4>& state) noexcept
+            : state(state)
+        {}
+
+        constexpr result_type operator()() noexcept
+        {
+            result_type ret = state[0] + state[1] + state[3];
+            state[3]++;
+
+            state[0] = state[1] ^ (state[1] >> 11);
+            state[1] = state[2] + (state[2] << 3);
+            state[2] = std::rotl<state_type>(state[2], 24) + ret;
+
+            return ret;
+        }
+
+        static constexpr result_type min() noexcept
+        {
+            return std::numeric_limits<result_type>::lowest();
+        }
+        static constexpr result_type max() noexcept
+        {
+            return std::numeric_limits<result_type>::max();
+        }
+
+    private:
+        std::array<uint64_t, 4> state;
+
+        constexpr void warmup() noexcept
+        {
+            for (size_t i = 0; i < 12; i++) std::invoke(*this);
+        }
     };
 
 } // namespace xorshift
